@@ -2,10 +2,10 @@
 ** The main application file. It runs the Flutter app and sets up the route management.
 */
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Import provider
+import 'package:provider/provider.dart';
 import 'screens/home_page.dart';
 import 'screens/book_detail_page.dart';
-import 'states/app_state.dart'; // Import your AppState
+import 'states/app_state.dart';
 
 void main() {
   runApp(MyApp()); // This is where the app starts executing.
