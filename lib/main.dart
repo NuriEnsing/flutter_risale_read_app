@@ -1,28 +1,25 @@
 /* 
-** The main application file. It runs the Flutter app and sets up the top-level ChangeNotifierProvider for the app state.
+** The main application file. It runs the Flutter app and sets up the route management.
 */
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'states/app_state.dart';
-import 'pages/home_page.dart';
+import 'screens/home_page.dart';
+import 'screens/book_detail_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp()); // This is where the app starts executing.
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppState(),
-      child: MaterialApp(
-        title: 'Book App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: HomePage(),
-      ),
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(), // HomePage is mapped to the route '/'
+        '/book': (context) =>
+            BookDetailPage(), // BookDetailPage is mapped to the route '/book'
+        // You can add more routes here as your app grows
+      },
     );
   }
 }

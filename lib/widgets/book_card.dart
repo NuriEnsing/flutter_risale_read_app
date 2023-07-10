@@ -5,6 +5,9 @@
 // widgets/book_card.dart
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../states/app_state.dart';
+import '../widgets/book_cover.dart';
 import '../models/book.dart';
 
 class BookCard extends StatelessWidget {
@@ -14,13 +17,19 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          // Handle book click
-        },
-        child: Center(
-          child: Text(book.title), // Replace this with actual book title
+    return GestureDetector(
+      onTap: () {
+        Provider.of<AppState>(context, listen: false).selectBook(book);
+        Navigator.pushNamed(context, '/book');
+      },
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: BookCover(book: book),
+            ),
+            Text(book.title),
+          ],
         ),
       ),
     );

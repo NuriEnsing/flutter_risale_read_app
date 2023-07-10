@@ -1,6 +1,6 @@
-# Flutter Book Reader App
+# Flutter Risale-i Nur Reader App
 
-This project is a simple book reading app built with Flutter. It provides a list of books that users can select to read, download and search from. It also includes features such as bookmarking, login, etc.
+This project is a Risale-i Nur book reading app built with Flutter. It provides a list of books that users can select to read, download and search from. It also includes features such as bookmarking, login, etc.
 
 ## Project Structure
 

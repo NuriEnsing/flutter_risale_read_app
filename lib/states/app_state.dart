@@ -6,7 +6,9 @@ import 'package:flutter/foundation.dart';
 import '../models/book.dart';
 
 class AppState extends ChangeNotifier {
-  List<Book> books = [];
+  List<Book> books = [
+    Book(title: 'The Tenth Word', author: 'Said Nursi', id: '1')
+  ];
   Book? currentBook;
   List<Book> bookmarks = [];
 

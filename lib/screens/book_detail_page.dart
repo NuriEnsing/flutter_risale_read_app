@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../states/app_state.dart';
-import '../pages/book_content_page.dart';
+import '../screens/book_content_page.dart';
 
 class BookDetailPage extends StatelessWidget {
   @override
@@ -22,7 +22,7 @@ class BookDetailPage extends StatelessWidget {
               children: [
                 Text(book.title),
                 Text(book.author),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -32,6 +32,12 @@ class BookDetailPage extends StatelessWidget {
                     );
                   },
                   child: Text('Read this book'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                  child: Text('Terug naar de hoofdpagina'),
                 ),
               ],
             );
