@@ -12,19 +12,18 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // The drawer is a sidebar that can be swiped in from the left.
       drawer: Drawer(
-        // ListView ensures the drawer can be scrolled if there is not enough vertical space.
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("User Name"),
-              accountEmail: Text("User Email"),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Text(
-                  "U",
-                  style: TextStyle(fontSize: 40.0),
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
                 ),
               ),
             ),
@@ -33,14 +32,11 @@ class HomePage extends StatelessWidget {
               title: Text('Bookmarks'),
               onTap: () {
                 Navigator.pushNamed(context, '/bookmarks');
-                // Navigates to the '/bookmarks' route when this ListTile is tapped.
               },
             ),
-            // Add more ListTiles here for other pages, remember to add corresponding icons
           ],
         ),
       ),
-      // The body contains a ListView of books. Each book is a BookCard.
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -52,52 +48,66 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        child: Consumer<AppState>(
-          builder: (context, appState, child) {
-            return Column(
-              children: [
-                if (appState.currentBook != null)
-                  Expanded(
-                    child: Row(
-                      children: [
-                        // The currently selected book is displayed here.
-                        Expanded(child: BookCard(book: appState.currentBook!)),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(appState.currentBook!.title),
-                              Text(
-                                  'Last read at page X'), // replace X with last read page
-                              Text(
-                                  'Total read time: X minutes'), // replace X with total read time
-                            ],
-                          ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50.0), // Add padding at the top
+          child: Consumer<AppState>(
+            builder: (context, appState, child) {
+              return Column(
+                children: [
+                  if (appState.currentBook != null)
+                    Expanded(
+                      flex: 1,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            BookCard(book: appState.currentBook!),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(appState.currentBook!.title),
+                                Text(
+                                    'Last read at page ${appState.currentBookPage}'), // Updated text
+                                Text('Total read time: X minutes'),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ),
+                  Divider(),
+                  Expanded(
+                    flex: 2,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10.0,
+                        mainAxisSpacing: 10.0,
+                      ),
+                      itemCount: appState.books.length,
+                      itemBuilder: (context, index) {
+                        final book = appState.books[index];
+                        return GestureDetector(
+                          onTap: () {
+                            appState.currentBook = book;
+                            if (appState.currentBookPage > 0) {
+                              Navigator.pushNamed(context, '/bookContent');
+                            } else {
+                              Navigator.pushNamed(context, '/bookDetail');
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: BookCard(book: book),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                Divider(),
-                Expanded(
-                  flex: 2,
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
-                    ),
-                    itemCount: appState.books.length,
-                    itemBuilder: (context, index) {
-                      final book = appState.books[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: BookCard(book: book),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

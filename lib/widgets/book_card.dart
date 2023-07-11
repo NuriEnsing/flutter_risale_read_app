@@ -23,13 +23,16 @@ class BookCard extends StatelessWidget {
         Navigator.pushNamed(context, '/book');
       },
       child: Card(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: BookCover(book: book),
-            ),
-            Text(book.title),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Centering items within the column.
+            children: <Widget>[
+              Expanded(
+                child: BookCover(book: book),
+              )
+            ],
+          ),
         ),
       ),
     );

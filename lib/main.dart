@@ -8,7 +8,12 @@ import 'screens/book_detail_page.dart';
 import 'states/app_state.dart';
 
 void main() {
-  runApp(MyApp()); // This is where the app starts executing.
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppState(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -9,12 +9,17 @@ class BookCover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red[800], // bordeaux rood
+      color: Colors.red[800],
       child: Center(
-        child: Text(
-          book.title,
-          style: TextStyle(
-            color: Colors.amber[600], // goud
+        // Add Center widget
+        child: Align(
+          alignment: Alignment.center, // Align to the center
+          child: Text(
+            book.title,
+            textAlign: TextAlign.center, // Center text
+            style: TextStyle(
+              color: Colors.amber[600],
+            ),
           ),
         ),
       ),
